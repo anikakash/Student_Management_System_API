@@ -1,0 +1,7 @@
+initialization project =  npm init -y
+to install express = npm i express
+node mon install = npm i nodemon -D
+install .env file = npm i dotenv
+install mogo db = npm install mongodb
+install mongoose to access mongodb = npm i mongoose
+npm i bcrypt jsonwebtoken joi 
