@@ -8,7 +8,7 @@ const teacherRegistration = async (req, res) => {
   try {
     const response = await teacherModel.save();
     response.password = undefined; // we are not send password so erase it before send the response
-    res.status(200).json({ Message: "Teacher Regi success.", data: response });
+    res.status(200).json({ Message: "Teacher Regi success.", response });
   } catch (error) {
     res.status(500).json({ Message: error.message });
   }
@@ -36,8 +36,9 @@ const teacherLogin = async (req, res) => {
     const tokenObject = {
       _id: teacherCredential._id,
       Name: teacherCredential.name,
-      department: teacherCredential.department,
-      email: teacherCredential.email,
+      Role: teacherCredential.role,
+      Department: teacherCredential.department,
+      Email: teacherCredential.email,
     };
 
     const jwtToken = jwt.sign(tokenObject, process.env.SECRET, {

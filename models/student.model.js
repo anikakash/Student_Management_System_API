@@ -23,6 +23,14 @@ const StudentSchema = mongoose.Schema(
       required: true,
       default: 0.0,
     },
+    teacherId: {
+      type: mongoose.Schema.Types.ObjectId, // Assuming the teacher ID is stored as ObjectId
+      required: true,
+    },
+    teacherName: {
+      type: String,
+      required: true,
+    },
   },
   {
     timestamps: true,
