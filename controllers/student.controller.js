@@ -60,10 +60,12 @@ const getStudent = async (req, res) => {
   }
 };
 
+// Logged in teacher can updated specifc studnet info
 const updateStudent = async (req, res) => {
   try {
     const { id } = req.params;
-    const studnetInfo = await Student.findByIdAndUpdate(id, req.body);
+    const teacherId = req.user._id; // Get the logged-in teacher's ID
+    const studnetInfo = await Student.findOneAndUpdate({_id: id,teacherId }, req.body,{ new: true });
 
     if (!studnetInfo)
       return res.status(404).json("Message: No studnt exist on `${id}`");

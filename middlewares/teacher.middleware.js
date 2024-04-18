@@ -3,10 +3,10 @@ const { model } = require("mongoose");
 
 const teacherRegistrationValidate = (req, res, next) => {
   const schema = Joi.object({
-    name: Joi.string().min(3).max(15).required(),
+    name: Joi.string().min(3).max(50).required(),
     role: Joi.string().optional(),
     email: Joi.string().email().required(),
-    department: Joi.string().min(3).max(10).required(),
+    department: Joi.string().min(3).max(50).required(),
     password: Joi.string().min(4).alphanum().required(),
   });
 
@@ -14,7 +14,13 @@ const teacherRegistrationValidate = (req, res, next) => {
 
   if (error) {
     console.log(error);
-    return res.status(400).json({ message: "Bad Request while registration." });
+    const errorMessage = {
+      message: "Input data is not correct! Please input valid info",
+      details: error.details.map(detail => ({
+        message: detail.message
+      }))
+    };
+    return res.status(400).json(errorMessage);
   }
 
   next();
