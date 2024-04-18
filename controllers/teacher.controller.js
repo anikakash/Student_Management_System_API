@@ -51,7 +51,66 @@ const teacherLogin = async (req, res) => {
   }
 };
 
+
+const getTeachers = async (req, res) => {
+  try {
+    const teachers = await Teacher.find({}).select('-password');  // Excluding the password field
+    if (teachers.length === 0) {
+      return res.status(404).json({ Meassage: "Database is empty!" });
+    }
+    res
+      .status(200)
+      .json({ message: "Teacher data retrive successfully ", data: teachers });
+  } catch (error) {
+    res.status(500).json({ Message: error.message });
+  }
+};
+
+const getLoggedInTeacherInfo = async(req, res)=>{
+  try {
+    const teacherId = req.user._id;
+    const teacherInfo = await Teacher.findById(teacherId).select('-password');;
+    if (!teacherInfo) {
+      return res.status(404).json({ Meassage: "This studnet is not exist" });
+    }
+    res.status(200).json(teacherInfo);
+  } catch (error) {
+    res.status(500).json({ Message: error.message });
+  }
+}
+
+const updateLoggedInTeacherInfo = async (req, res) => {
+  try {
+    const teacherId = req.user._id; // Get the logged-in teacher's ID
+    const existingTeacher  = await Teacher.findById(teacherId);
+
+    if (!existingTeacher)
+      return res.status(404).json("Message: You data is not found!");
+    
+      // Update teh teacher's information
+    existingTeacher.set(req.body);
+
+    // If the request contains a new password, hash it and update the teacher's password
+    if (req.body.password) {
+      existingTeacher.password = await bcrypt.hash(req.body.password, 10);
+    }
+
+    // Save the updated teacher information
+    const updatedTeacher = await existingTeacher.save();
+
+    // Exclude the password field from the response
+    updatedTeacher.password = undefined;
+
+    res.status(200).json({ Message: "Teacher information updated successfully", data: updatedTeacher });
+  } catch (error) {
+    res.status(500).json({ Message: error.message });
+  }
+};
+
 module.exports = {
   teacherRegistration,
   teacherLogin,
+  getTeachers,
+  getLoggedInTeacherInfo,
+  updateLoggedInTeacherInfo,
 };

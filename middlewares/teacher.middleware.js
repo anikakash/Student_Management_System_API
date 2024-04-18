@@ -29,12 +29,19 @@ const teacherRegistrationValidate = (req, res, next) => {
 const teacherLoginValidate = (req, res, next) => {
   const schema = Joi.object({
     email: Joi.string().email().required(),
-    password: Joi.string().min(4).alphanum().required(),
+    password: Joi.string().min(3).alphanum().required(),
   });
 
   const { error, value } = schema.validate(req.body);
   if (error) {
-    return res.status(400).json({ message: "Bad Request while Loing." });
+    console.log(error);
+    const errorMessage = {
+      message: "Input data is not correct! Please input valid info",
+      details: error.details.map(detail => ({
+        message: detail.message
+      }))
+    };
+    return res.status(400).json(errorMessage);
   }
 
   next();
