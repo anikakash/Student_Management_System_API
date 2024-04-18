@@ -42,3 +42,6 @@ This project is an API for managing students and teachers within an educational 
 
 - Authentication for both teachers and students is handled using JSON Web Tokens (JWT).
 - Teachers and students will receive a JWT upon successful login, which they should include in the headers of subsequent requests to authenticate themselves.
+
+
+[post man document](https://documenter.getpostman.com/view/27776369/2sA3Bn6Y5W)
