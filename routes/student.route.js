@@ -15,7 +15,7 @@ const {
 
 router.get("/students", getStudents);
 router.get("/student/:id", getStudent);
-router.post("/student", ensureAuthenticated, addStudent);
+router.post("/student", addStudent);
 router.put("/student/:id", updateStudent);
 router.delete("/student/:id", deleteStudent);
 
