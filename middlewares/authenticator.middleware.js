@@ -16,7 +16,7 @@ const ensureAuthenticated = (req, res, next) => {
   try {
     const authHeader = req.headers.authorization;
     if (!authHeader) {
-      return res.status(401).json({ message: "UnAuthorized" });
+      return res.status(401).json({ message: "UnAuthorized Login" });
     }
     const decode = jwt.verify(authHeader, process.env.SECRET);
     req.user = decode;
@@ -29,6 +29,15 @@ const ensureAuthenticated = (req, res, next) => {
   }
 };
 
+const ensureRole = (role) =>{
+  return (req, res, next) => {
+    if(req.user.Role !== role){
+      return res.status(403).json({ message: "You don't have permission to make new users" });
+    }
+    next();
+  }
+}
 module.exports = {
   ensureAuthenticated,
+  ensureRole
 };
