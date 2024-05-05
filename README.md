@@ -150,16 +150,6 @@ Deletes a specific student by ID.
 - **updateStudent**: Updates the information of a specific student by ID.
 - **deleteStudent**: Deletes a specific student by ID.
 
-## Configuration
-
-The project utilizes MongoDB as the database. Ensure to set up the database connection and environment variables such as `SECRET` for JWT token encryption.
-
-## Note
-
-- This documentation provides an overview of the backend project, including endpoints, middleware, controllers, and configuration details.
-- Additional adjustments or improvements can be made based on specific project requirements or future updates.
-
-Feel free to modify or expand this documentation according to your project's needs. Let me know if you need further assistance!
 
 
 
