@@ -1,0 +1,3 @@
+db name = anikakas_stdRole_base	
+db user = anikakas_studnet_role
+user pass = studnet_role!
